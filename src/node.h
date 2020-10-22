@@ -66,6 +66,8 @@ struct cmark_node {
   void *user_data;
   cmark_free_func user_data_free_func;
 
+  cmark_chunk id;
+
   int start_line;
   int start_column;
   int end_line;

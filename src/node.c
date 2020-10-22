@@ -301,6 +301,24 @@ cmark_node *cmark_node_last_child(cmark_node *node) {
   }
 }
 
+const char *cmark_node_get_id(cmark_node *node) {
+  if (node == NULL) {
+    return NULL;
+  }
+
+  return node->id.alloc ? cmark_chunk_to_cstr(NODE_MEM(node), &node->id) : NULL;
+}
+
+int cmark_node_set_id(cmark_node *node, const char *id) {
+  if (node == NULL) {
+    return 0;
+  }
+
+  cmark_chunk_set_cstr(NODE_MEM(node), &node->id, id);
+  return 1;
+}
+
+
 void *cmark_node_get_user_data(cmark_node *node) {
   if (node == NULL) {
     return NULL;
