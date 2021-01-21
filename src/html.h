@@ -15,16 +15,21 @@ static void cmark_html_render_cr(cmark_strbuf *html) {
 CMARK_INLINE 
 static void cmark_html_render_sourcepos(cmark_node *node, cmark_strbuf *html, int options) {
   char buffer[BUFFER_SIZE];
-  const char *id;
-  id = cmark_node_get_id (node);
-  if (id != NULL) {
-    snprintf(buffer, BUFFER_SIZE, " id=\"%s\"", id);
-    cmark_strbuf_puts(html, buffer);
-  }
   if (CMARK_OPT_SOURCEPOS & options) {
     snprintf(buffer, BUFFER_SIZE, " data-sourcepos=\"%d:%d-%d:%d\"",
              cmark_node_get_start_line(node), cmark_node_get_start_column(node),
              cmark_node_get_end_line(node), cmark_node_get_end_column(node));
+    cmark_strbuf_puts(html, buffer);
+  }
+}
+
+CMARK_INLINE 
+static void cmark_html_render_id(cmark_node *node, cmark_strbuf *html) {
+  char buffer[BUFFER_SIZE];
+  const char *id;
+  id = cmark_node_get_id (node);
+  if (id != NULL) {
+    snprintf(buffer, BUFFER_SIZE, " id=\"%s\"", id);
     cmark_strbuf_puts(html, buffer);
   }
 }
